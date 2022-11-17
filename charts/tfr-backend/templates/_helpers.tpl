@@ -62,7 +62,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "tfr-backend.envFrom" -}}
-{{- if eq .Values.environment "development" }}
+{{- if eq .Values.environment "production" }}
 - secretRef:
     name: sentry
 {{- end }}
