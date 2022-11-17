@@ -3,7 +3,17 @@ entries:
   tfr-backend:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-11-17T02:07:48.541858146Z"
+    created: "2022-11-17T03:11:36.4188514Z"
+    description: A Helm chart for Kubernetes
+    digest: c6890a3f1ec3d50c266ee3111bfacc1c764a849926ee255effb32eece1b14641
+    name: tfr-backend
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/TheFittingRoom/helm-charts/gh-pages/tfr-backend-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-11-17T03:11:36.418181475Z"
     description: A Helm chart for Kubernetes
     digest: ca7f3e2d2b8e0c51516ccf3aee11243e34420f78af0945469b29c980bcee4a75
     name: tfr-backend
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://raw.githubusercontent.com/TheFittingRoom/helm-charts/gh-pages/tfr-backend-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-17T02:07:48.541183029Z"
+generated: "2022-11-17T03:11:36.417352844Z"
