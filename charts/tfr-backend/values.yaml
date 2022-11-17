@@ -67,6 +67,10 @@ api:
     maxReplicas: 5
     targetCPUUtilizationPercentage: 80
 
+externalSecrets:
+  firebase:
+    secretsManagerName: tfr-backend-firebase
+
 nodeSelector: {}
 
 tolerations: []
