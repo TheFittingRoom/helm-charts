@@ -68,13 +68,13 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 15
             httpGet:
-              path: /v1/health
+              path: /health
               port: app
           readinessProbe:
             initialDelaySeconds: 15
             periodSeconds: 15
             httpGet:
-              path: /v1/health
+              path: /health
               port: app
           resources:
             {{- toYaml .Values.api.resources | nindent 12 }}
