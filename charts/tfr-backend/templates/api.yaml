@@ -53,7 +53,7 @@ spec:
       volumes:
         - name: firebase-volume
           secret:
-            secretName: {{ include "tfr-backend.fullname" . }}-firebase
+            secretName: firebase-service-account
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
