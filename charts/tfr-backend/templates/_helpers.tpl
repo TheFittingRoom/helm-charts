@@ -66,6 +66,8 @@ Create the name of the service account to use
 - secretRef:
     name: sentry
 {{- end }}
+- secretRef:
+    name: {{ include "tfr-backend.fullname" . }}-db
 - configMapRef:
     name: {{ include "tfr-backend.fullname" . }}-configmap
 {{- end }}

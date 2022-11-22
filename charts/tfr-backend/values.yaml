@@ -67,7 +67,9 @@ api:
     maxReplicas: 5
     targetCPUUtilizationPercentage: 80
 
-externalSecrets: {}
+externalSecrets:
+  db:
+    secretsManagerName: db
 
 nodeSelector: {}
 
