@@ -39,6 +39,7 @@ service:
 ingress:
   className: nginx-external
   annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "400m"
     nginx.ingress.kubernetes.io/server-snippet: |
       location ~* "^/users/(.*)/avatar" {
           deny all;
