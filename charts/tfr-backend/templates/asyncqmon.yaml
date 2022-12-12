@@ -1,0 +1,102 @@
+{{- $name := include "tfr-backend.fullname" . -}}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tfr-backend.fullname" . }}-asynqmon
+  labels:
+    {{- include "tfr-backend.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: app
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "tfr-backend.selectorLabels" . | nindent 4 }}
+    role: asynqmon
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tfr-backend.fullname" . }}-asynqmon
+  labels:
+    {{- include "tfr-backend.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "tfr-backend.selectorLabels" . | nindent 6 }}
+      role: asynqmon
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "tfr-backend.selectorLabels" . | nindent 8 }}
+        role: asynqmon
+    spec:
+      serviceAccountName: {{ include "tfr-backend.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: asynqmon
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.asynqmon.image.repository }}:{{ .Values.asynqmon.image.tag }}"
+          imagePullPolicy: Always
+          env:
+            - name: REDIS_ADDR
+              value: "{{ .Values.redis.host }}:6379"
+          ports:
+            - name: app
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.asynqmon.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "tfr-backend.fullname" . }}-asynqmon
+  labels:
+    {{- include "tfr-backend.labels" . | nindent 4 }}
+  {{- with .Values.asynqmon.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: {{ .Values.asynqmon.ingress.className }}
+  rules:
+    {{- range .Values.asynqmon.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ $name }}-asynqmon
+                port:
+                  number: {{ $.Values.service.port }}
+          {{- end }}
+    {{- end }}

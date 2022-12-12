@@ -59,6 +59,29 @@ database:
 redis:
   host: redis.dev.thefittingroom.xyz
 
+asynqmon:
+  resources:
+    requests:
+      cpu: 300m
+      memory: 100Mi
+    limits:
+      cpu: 300m
+      memory: 1Gi
+  image:
+    repository: hibiken/asynqmon
+    tag: 0.7.1
+  ingress:
+    className: nginx-external
+    annotations:
+      nginx.ingress.kubernetes.io/auth-url: "https://oauth2proxy.dev.thefittingroom.xyz/oauth2/auth"
+      nginx.ingress.kubernetes.io/auth-signin: "https://oauth2proxy.dev.thefittingroom.xyz/oauth2/start?rd=$escaped_request_uri"
+    hosts:
+      - host: worker.dev.thefittingroom.xyz
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+
+
 api:
   resources:
     requests:
