@@ -51,7 +51,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: REDIS_URL
-              value: "redis://{{ .Values.redis.host }}:6379"
+              value: "redis://{{ .Values.redis.host }}"
           ports:
             - name: app
               containerPort: 8080

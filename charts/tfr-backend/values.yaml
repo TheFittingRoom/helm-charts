@@ -57,7 +57,7 @@ database:
   port: 5432
 
 redis:
-  host: redis.dev.thefittingroom.xyz
+  host: redis.dev.thefittingroom.xyz:6379
 
 asynqmon:
   resources:
