@@ -50,8 +50,8 @@ spec:
           image: "{{ .Values.asynqmon.image.repository }}:{{ .Values.asynqmon.image.tag }}"
           imagePullPolicy: Always
           env:
-            - name: REDIS_ADDR
-              value: "{{ .Values.redis.host }}:6379"
+            - name: REDIS_URL
+              value: "redis://{{ .Values.redis.host }}:6379"
           ports:
             - name: app
               containerPort: 8080

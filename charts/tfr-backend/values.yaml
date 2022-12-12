@@ -81,7 +81,6 @@ asynqmon:
           - path: /
             pathType: ImplementationSpecific
 
-
 api:
   resources:
     requests:
