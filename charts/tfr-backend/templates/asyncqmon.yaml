@@ -52,6 +52,10 @@ spec:
           env:
             - name: REDIS_URL
               value: "redis://{{ .Values.redis.host }}"
+            - name: ENABLE_METRICS_EXPORTER
+              value: "true"
+            - name: PROMETHEUS_ADDR
+              value: "http://kube-prometheus-stack-prometheus.monitoring:9090"
           ports:
             - name: app
               containerPort: 8080
