@@ -126,5 +126,5 @@ spec:
       - default
   endpoints:
     - path: /metrics
-      port: app
+      port: http
       interval: 5s
