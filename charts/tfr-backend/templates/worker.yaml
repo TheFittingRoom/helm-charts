@@ -97,5 +97,12 @@ spec:
         target:
           type: Utilization
           averageUtilization: {{ .Values.worker.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Pods
+      pods:
+        metric:
+          name: asynq_queue_latency_seconds
+        target:
+          type: AverageValue
+          averageValue: 4
     {{- end }}
 {{- end }}
