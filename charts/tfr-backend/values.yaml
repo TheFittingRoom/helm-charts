@@ -111,6 +111,15 @@ worker:
     targetCPUUtilizationPercentage: 80
     targetMemoryUtilizationPercentage: 75
 
+cronJobs:
+  check-pending-avatars:
+    enabled: true
+    cron: "*/1 * * * *"   # run once a minute
+    command: [CheckPendingAvatars]
+    concurrencyPolicy: Forbid
+    failedJobsHistoryLimit: 1
+    env: []
+
 externalSecrets:
   db:
     secretsManagerName: db

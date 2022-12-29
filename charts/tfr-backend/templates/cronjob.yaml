@@ -1,0 +1,68 @@
+{{- $name := include "tfr-backend.fullname" . -}}
+{{- $labels := include "tfr-backend.labels" . -}}
+{{- $envFrom := include "tfr-backend.envFrom" . -}}
+{{- $values := .Values -}}
+{{- $chart := .Chart -}}
+
+{{- range $jobName, $jobSettings := .Values.cronJobs }}
+{{- if $jobSettings.enabled }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ $name }}-{{ $jobName }}
+  labels:
+      {{- $labels | nindent 4 }}
+spec:
+  concurrencyPolicy: {{ $jobSettings.concurrencyPolicy | default "Allow" }}
+  failedJobsHistoryLimit: {{ $jobSettings.failedJobsHistoryLimit | default 1 }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+            - name: check-db-ready
+              image: postgres:14.5
+              imagePullPolicy: IfNotPresent
+              command: ['sh', '-c',
+                'until pg_isready -h {{ $values.database.host }} -p {{ $values.database.port }};
+                        do echo waiting for database; sleep 2; done;']
+              envFrom:
+                - secretRef:
+                    name: {{ $name }}-db
+          {{- with $values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: {{ $jobName }}
+              image: "{{ $values.image.repository }}:{{ $values.image.tag | default $chart.AppVersion }}"
+              imagePullPolicy: {{ $values.image.pullPolicy }}
+              command:
+                - ./fittingroom
+                - run
+                - job
+              args: {{ $jobSettings.command }}
+              workingDir: /app
+              envFrom:
+                {{- $envFrom | nindent 16 }}
+                {{- with $jobSettings.envFrom}}
+                  {{- toYaml . | nindent 16 }}
+                {{- end }}
+              env:
+              {{- with $jobSettings.env}}
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              {{- with $jobSettings.resources}}
+              resources:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          terminationGracePeriodSeconds: 30
+  schedule: {{ $jobSettings.cron | quote }}
+  successfulJobsHistoryLimit: {{ $jobSettings.successfulJobsHistoryLimit | default 1 }}
+  suspend: {{ $jobSettings.suspend | default false }}
+---
+{{- end }}
+{{- end }}
