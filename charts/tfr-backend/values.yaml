@@ -49,7 +49,6 @@ ingress:
       location ~* "^/colorways/(.*)/frames" {
           limit_except POST {
             deny all;
-            return 403;
           }
         }
   hosts:
