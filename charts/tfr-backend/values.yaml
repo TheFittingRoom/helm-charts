@@ -47,7 +47,7 @@ ingress:
         }
       
       location ~* "^/colorways/(.*)/frames" {
-          if ($request_method = PUT ) {
+          limit_except POST {
             deny all;
             return 403;
           }
