@@ -45,6 +45,11 @@ ingress:
           deny all;
           return 403;
         }
+      
+      location ~* "^/colorways/(.*)/frames" {
+          deny all;
+          return 403;
+        }
   hosts:
     - host: tfr.dev.thefittingroom.xyz
       paths:
