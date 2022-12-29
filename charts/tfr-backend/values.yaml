@@ -47,8 +47,10 @@ ingress:
         }
       
       location ~* "^/colorways/(.*)/frames" {
-          deny all;
-          return 403;
+          if ($request_method = PUT ) {
+            deny all;
+            return 403;
+          }
         }
   hosts:
     - host: tfr.dev.thefittingroom.xyz
