@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "avatar-creation.fullname" . }}
+  name: {{ include "virtual-try-on.fullname" . }}
   labels:
-    {{- include "avatar-creation.labels" . | nindent 4 }}
+    {{- include "virtual-try-on.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
+{{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
+{{- end }}
   selector:
     matchLabels:
-      {{- include "avatar-creation.selectorLabels" . | nindent 6 }}
+      {{- include "virtual-try-on.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+    {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-      {{- end }}
+    {{- end }}
       labels:
-        {{- include "avatar-creation.selectorLabels" . | nindent 8 }}
+        {{- include "virtual-try-on.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "avatar-creation.serviceAccountName" . }}
+      serviceAccountName: {{ include "virtual-try-on.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -34,11 +34,14 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - python3.9
+            - server_http.py
           env:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
           envFrom:
-            {{- include "avatar-creation.envFrom" . | nindent 12 }}
+            {{- include "virtual-try-on.envFrom" . | nindent 12 }}
           ports:
             - name: app
               containerPort: 8000

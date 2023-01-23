@@ -1,10 +1,10 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/thefittingroom/avatar-creation
+  repository: ghcr.io/thefittingroom/vto
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: f0ab440
+  tag: 062985b
 
 imagePullSecrets:
   - name: docker-registry
@@ -16,10 +16,10 @@ serviceAccount:
   create: true
   # Annotations to add to the service account
   annotations:
-    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/avatar-creation-dev'
+    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/virtual-try-on-dev'
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: avatar-creation
+  name: virtual-try-on
 
 podAnnotations: {}
 
@@ -40,23 +40,37 @@ service:
 
 ingress:
   enabled: false
-  className: ""
   annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
-resources:
-  limits:
-    nvidia.com/gpu: 1
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
 env:
   SCENE_HOST: scene-svc
-  MEASURE_HOST: measure-svc
-  BUCKET: avatar-creation-dev
-  REGION: us-west-2
+  SCENE_PORT: "8000"
+  RESPONSE_IP: vto-resp-svc
+  RESPONSE_PORT: "8000"
+  AVATARS_BUCKET: tfr-avatars-dev
+  STYLES_BUCKET: styles-dev
+  S3_region: us-west-2
 
 autoscaling:
   enabled: false
@@ -66,10 +80,10 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector:
-  nodepool: "A10"
+  nodepool: compute
 
 tolerations:
-  - key: "A10"
+  - key: "compute"
     operator: "Equal"
     value: "true"
     effect: "NoSchedule"
