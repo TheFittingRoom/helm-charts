@@ -64,10 +64,8 @@ resources: {}
   #   memory: 128Mi
 
 env:
-  SCENE_HOST: scene-svc
+  SCENE_HOST: scene-engine
   SCENE_PORT: "8000"
-  RESPONSE_IP: vto-resp-svc
-  RESPONSE_PORT: "8000"
   AVATARS_BUCKET: tfr-avatars-dev
   STYLES_BUCKET: styles-dev
   S3_region: us-west-2
