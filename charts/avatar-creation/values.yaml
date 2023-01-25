@@ -53,8 +53,8 @@ resources:
     nvidia.com/gpu: 1
 
 env:
-  SCENE_HOST: scene-svc
-  MEASURE_HOST: measure-svc
+  SCENE_HOST: scene-engine
+  MEASURE_HOST: measure-engine
   BUCKET: avatar-creation-dev
   REGION: us-west-2
 

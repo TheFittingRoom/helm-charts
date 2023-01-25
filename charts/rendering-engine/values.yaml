@@ -1,10 +1,10 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/thefittingroom/tfr-deeptech-backend
+  repository: ghcr.io/thefittingroom/render-engine
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: rendering0.0.13
+  tag: 15b6cb5
 
 imagePullSecrets:
   - name: docker-registry
@@ -61,8 +61,8 @@ autoscaling:
 
 env:
   RENDER_BUCKET: tfr-render-dev
-  RABBIT_HOST: http://rabbitmq
-  RENDER_THREADS: "7"
+  RABBIT_HOST: rabbitmq
+  RENDER_THREADS: "2"
   REGION: us-west-2
 
 nodeSelector:
