@@ -130,6 +130,17 @@ externalSecrets:
   db:
     secretsManagerName: db
 
+env:
+  S3_AVATAR_CREATION_BUCKET: avatar-creation-dev
+  S3_AVATARS_BUCKET: tfr-avatars-dev
+  S3_STYLES_BUCKET: styles-dev
+  S3_ASSETS_BUCKET: tfr-assets-dev
+  S3_RENDER_BUCKET: tfr-render-dev
+  ASSETS_URL: https://assets.dev.thefittingroom.xyz
+  VTO_FRAME_COUNT: "12"
+  VTO_URL: http://virtual-try-on:8000
+  AVATAR_URL: http://avatar-creation:8000
+
 nodeSelector: {}
 
 tolerations: []
