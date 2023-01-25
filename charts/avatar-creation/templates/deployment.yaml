@@ -34,6 +34,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python3.8", "server_http.py"]
           env:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
