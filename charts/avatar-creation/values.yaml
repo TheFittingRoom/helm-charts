@@ -48,9 +48,9 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
 
-resources:
-  limits:
-    nvidia.com/gpu: 1
+#resources:
+#  limits:
+#    nvidia.com/gpu: 1
 
 env:
   SCENE_HOST: scene-engine
@@ -65,14 +65,14 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector:
-  nodepool: "A10"
+#nodeSelector:
+#  nodepool: "A10"
 
-tolerations:
-  - key: "A10"
-    operator: "Equal"
-    value: "true"
-    effect: "NoSchedule"
+#tolerations:
+#  - key: "A10"
+#    operator: "Equal"
+#    value: "true"
+#    effect: "NoSchedule"
 
 affinity: {}
 
