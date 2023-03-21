@@ -57,7 +57,7 @@ env:
   MEASURE_HOST: measure-engine
   BUCKET: avatar-creation-dev
   REGION: us-west-2
-  AVATAR_CONTROLLER_HOST: avatar-controller
+  AVATAR_CONTROLLER_HOST: avatar-api
 
 autoscaling:
   enabled: false
