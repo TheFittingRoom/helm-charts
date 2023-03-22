@@ -84,7 +84,7 @@ tolerations:
   - key: "A10"
     operator: "Equal"
     value: "true"
-    effect: "NoSchedule"e
+    effect: "NoSchedule"
 
 affinity: {}
 
