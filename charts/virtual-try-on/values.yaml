@@ -78,13 +78,13 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector:
-  nodepool: compute
+  nodepool: "A10"
 
 tolerations:
-  - key: "compute"
+  - key: "A10"
     operator: "Equal"
     value: "true"
-    effect: "NoSchedule"
+    effect: "NoSchedule"e
 
 affinity: {}
 
