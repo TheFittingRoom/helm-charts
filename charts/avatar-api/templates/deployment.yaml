@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "avatar-creation.fullname" . }}
+  name: {{ include "avatar-api.fullname" . }}
   labels:
-    {{- include "avatar-creation.labels" . | nindent 4 }}
+    {{- include "avatar-api.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "avatar-creation.selectorLabels" . | nindent 6 }}
+      {{- include "avatar-api.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,13 +19,13 @@ spec:
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       {{- end }}
       labels:
-        {{- include "avatar-creation.selectorLabels" . | nindent 8 }}
+        {{- include "avatar-api.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "avatar-creation.serviceAccountName" . }}
+      serviceAccountName: {{ include "avatar-api.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -39,7 +39,7 @@ spec:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
           envFrom:
-            {{- include "avatar-creation.envFrom" . | nindent 12 }}
+            {{- include "avatar-api.envFrom" . | nindent 12 }}
           ports:
             - name: app
               containerPort: 8000

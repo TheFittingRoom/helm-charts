@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "avatar-creation.name" -}}
+{{- define "avatar-api.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "avatar-creation.fullname" -}}
+{{- define "avatar-api.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "avatar-creation.chart" -}}
+{{- define "avatar-api.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "avatar-creation.labels" -}}
-helm.sh/chart: {{ include "avatar-creation.chart" . }}
-{{ include "avatar-creation.selectorLabels" . }}
+{{- define "avatar-api.labels" -}}
+helm.sh/chart: {{ include "avatar-api.chart" . }}
+{{ include "avatar-api.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,23 +45,23 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "avatar-creation.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "avatar-creation.name" . }}
+{{- define "avatar-api.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "avatar-api.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "avatar-creation.serviceAccountName" -}}
+{{- define "avatar-api.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "avatar-creation.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "avatar-api.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
-{{- define "avatar-creation.envFrom" -}}
+{{- define "avatar-api.envFrom" -}}
 - configMapRef:
-    name: {{ include "avatar-creation.fullname" . }}-configmap
+    name: {{ include "avatar-api.fullname" . }}-configmap
 {{- end }}
