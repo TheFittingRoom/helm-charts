@@ -60,6 +60,7 @@ env:
   SCENE_PORT: "8000"
   AVATARS_BUCKET: tfr-avatars-dev
   STYLES_BUCKET: styles-dev
+  VIRT_TRY_ON_BUCKET: virtual-try-on-dev
   S3_region: us-west-2
 
 autoscaling:
