@@ -1,16 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "avatar-api.fullname" . }}
+  name: {{ include "avatar.fullname" . }}-api
   labels:
-    {{- include "avatar-api.labels" . | nindent 4 }}
+    {{- include "avatar.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "avatar-api.selectorLabels" . | nindent 6 }}
+      {{- include "avatar.selectorLabels" . | nindent 6 }}
+      role: api
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,34 +20,35 @@ spec:
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       {{- end }}
       labels:
-        {{- include "avatar-api.selectorLabels" . | nindent 8 }}
+        {{- include "avatar.selectorLabels" . | nindent 8 }}
+        role: api
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "avatar-api.serviceAccountName" . }}
+      serviceAccountName: {{ include "avatar.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["python3", "server.py"]
           env:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
           envFrom:
-            {{- include "avatar-api.envFrom" . | nindent 12 }}
+            {{- include "avatar.envFrom" . | nindent 12 }}
           ports:
             - name: app
               containerPort: 8000
               protocol: TCP
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+            {{- toYaml .Values.resources | nindent 12 }}    
+      {{- with .Values.nodeSelector }}        
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -57,4 +59,5 @@ spec:
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+      {{- end }}         
+      
