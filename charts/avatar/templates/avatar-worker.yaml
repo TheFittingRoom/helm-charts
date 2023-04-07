@@ -1,25 +1,33 @@
+{{- $name := include "avatar.fullname" . -}}
+
+
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: {{ .Values.worker.name }}
+  name: {{ include "avatar.fullname" . }}-worker
   labels:
-    name: {{ .Values.worker.name }}
+    {{- include "avatar.labels" . | nindent 4 }}
 spec:
-  
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      type: {{ .Values.worker.name }}
+      {{- include "avatar.selectorLabels" . | nindent 6 }}
+      role: worker
   template:
     metadata:
       labels:
-        type: {{ .Values.worker.name }}
+        {{- include "avatar.selectorLabels" . | nindent 8 }}
+        role: worker
     spec:
-      serviceAccountName: {{ .Values.serviceAccount.name }}
-      nodeSelector:
-        nodepool: {{ .Values.worker.nodeSelector.nodepool }}
+      serviceAccountName: {{ include "avatar.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
-      - name: {{ .Values.worker.name }}
+      - name: {{ .Chart.Name }}
         image:  "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}" 
         imagePullPolicy:  {{ .Values.worker.image.pullPolicy }}
         ports:
@@ -36,13 +44,20 @@ spec:
         resources:
             limits:
               nvidia.com/gpu:  1
-      imagePullSecrets:
-      - name:  {{ .Values.worker.imagePullSecrets.name }}
+              
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
-      - key: {{ .Values.worker.tolerations.key }}
-        operator: {{ .Values.worker.tolerations.operator }}
-        value: {{ .Values.worker.tolerations.value }}
-        effect: {{ .Values.worker.tolerations.effect }} 
+        {{- toYaml . | nindent 8 }}
+      {{- end }}        
+      
+      
 
 
 
