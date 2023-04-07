@@ -96,10 +96,10 @@ worker:
       nvidia.com/gpu: 1
 
   tolerations:
-    key: "A10"
-    operator: "Equal"
-    value: "true"
-    effect: "NoSchedule"  
+    - key: "A10"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"  
   
   imagePullSecrets:
     name: docker-registry
