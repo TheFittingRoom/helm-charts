@@ -17,6 +17,8 @@ spec:
       role: worker
   template:
     metadata:
+      annotations:
+        checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         {{- include "avatar.selectorLabels" . | nindent 8 }}
         role: worker
