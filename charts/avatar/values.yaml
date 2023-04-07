@@ -81,7 +81,7 @@ affinity: {}
 environment: development
 
 worker:
-  name: avatar-worker
+ 
   image:
     repository: ghcr.io/thefittingroom/avatar-worker
     pullPolicy: IfNotPresent
