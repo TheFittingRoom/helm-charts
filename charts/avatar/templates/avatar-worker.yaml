@@ -44,7 +44,7 @@ spec:
         resources:
             limits:
               nvidia.com/gpu:  1
-              
+      {{- with .Values.nodeSelector }}        
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
