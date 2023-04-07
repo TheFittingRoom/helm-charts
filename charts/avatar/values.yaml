@@ -103,3 +103,4 @@ worker:
   
   imagePullSecrets:
     name: docker-registry
+  affinity: {}  
