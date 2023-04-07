@@ -53,10 +53,12 @@ ingress:
 #    nvidia.com/gpu: 1
 
 env:
-  SCENE_HOST: scene-engine
+  SCENE_HOST: render-api
   MEASURE_HOST: measure-engine
   BUCKET: avatar-creation-dev
   REGION: us-west-2
+  REDIS_HOST: redis.dev.thefittingroom.xyz:6379
+
  
 
 autoscaling:
@@ -69,3 +71,27 @@ autoscaling:
 affinity: {}
 
 environment: development
+
+worker:
+  name: avatar-worker
+  image:
+    repository: ghcr.io/thefittingroom/avatar-worker
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: c65acce
+
+  nodeSelector:
+    nodepool: "A10"
+
+  resources:
+    limits:
+      nvidia.com/gpu: 1
+
+  tolerations:
+    key: "A10"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"  
+  
+  imagePullSecrets:
+    name: docker-registry

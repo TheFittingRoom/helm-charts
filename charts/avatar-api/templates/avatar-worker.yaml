@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ .Values.worker.name }}
+  labels:
+    name: {{ .Values.worker.name }}
+spec:
+  
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      type: {{ .Values.worker.name }}
+  template:
+    metadata:
+      labels:
+        type: {{ .Values.worker.name }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      nodeSelector:
+        nodepool: {{ .Values.worker.nodeSelector.nodepool }}
+      containers:
+      - name: {{ .Values.worker.name }}
+        image:  "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}" 
+        imagePullPolicy:  {{ .Values.worker.image.pullPolicy }}
+        ports:
+        - containerPort: 8000
+        - containerPort: 80
+         # protocol: TCP
+        command: ["celery",  "-A", "celery_worker", "worker",  "-c", "20", "-Q", "avatar_creation_queue"] 
+       
+        env:  
+        - name: SERVICE_PORT
+          value: {{ .Values.service.port | quote }} 
+        envFrom:
+            {{- include "avatar-api.envFrom" . | nindent 12 }}   
+        resources:
+            limits:
+              nvidia.com/gpu:  1
+      imagePullSecrets:
+      - name:  {{ .Values.worker.imagePullSecrets.name }}
+      tolerations:
+      - key: {{ .Values.worker.tolerations.key }}
+        operator: {{ .Values.worker.tolerations.operator }}
+        value: {{ .Values.worker.tolerations.value }}
+        effect: {{ .Values.worker.tolerations.effect }} 
+
+
+
+
+
