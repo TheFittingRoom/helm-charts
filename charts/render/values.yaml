@@ -1,0 +1,107 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/thefittingroom/render-api
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 2ba0d5c
+
+imagePullSecrets:
+  - name: docker-registry
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations:
+    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/render-dev'
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: render
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+#resources:
+#  limits:
+#    nvidia.com/gpu: 1
+
+env:
+  REGION: us-west-2
+  REDIS_HOST: redis.dev.thefittingroom.xyz:6379
+  AVATAR_BUCKET: avatar-creation-dev
+  RENDER_BUCKET: tfr-render-dev 
+  VTO_BUCKET: virtual-try-on-dev  
+
+
+ 
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+#nodeSelector:
+#  nodepool: "A10"
+
+#tolerations:
+#  - key: "A10"
+#    operator: "Equal"
+#    value: "true"
+#    effect: "NoSchedule"
+
+affinity: {}
+
+environment: development
+
+worker:
+ 
+  image:
+    repository: ghcr.io/thefittingroom/render-worker
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: cde5bba
+
+  nodeSelector:
+    nodepool: "A10"
+
+  resources:
+    limits:
+      nvidia.com/gpu: 1
+
+  tolerations:
+    - key: "A10"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"  
+  
+  imagePullSecrets:
+    name: docker-registry
+  affinity: {}  
