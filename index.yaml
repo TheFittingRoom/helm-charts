@@ -3,9 +3,9 @@ entries:
   avatar:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-04-07T20:13:34.99366518Z"
+    created: "2023-04-09T05:59:42.567004334Z"
     description: A Helm chart for Kubernetes
-    digest: 25e73b6b3e0da4627b0efe15180ca863d2a6a17aaccd31f67f42368036719275
+    digest: 74a9781619ff9bd6141f5f4179f6b1e56f9ffec353f51b370bd4d7460dfa7b40
     name: avatar
     type: application
     urls:
@@ -14,7 +14,7 @@ entries:
   avatar-api:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-04-07T20:13:34.99439618Z"
+    created: "2023-04-09T05:59:42.567822739Z"
     description: A Helm chart for Kubernetes
     digest: d1d0bb746a7e237cf0d5a47e80f80aaf82c16a0403359fffc484760049e2217f
     name: avatar-api
@@ -25,9 +25,9 @@ entries:
   avatar-creation:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.996736878Z"
+    created: "2023-04-09T05:59:42.57112816Z"
     description: A Helm chart for Kubernetes
-    digest: fb08465bfaf5350cbfe3da1f64fafc48956101334c59ba161f1600248c68529f
+    digest: 2ad1906eefab2f29ca27a4b4ad656bfdf7e11b87be19491ee154f1be562f34d5
     name: avatar-creation
     type: application
     urls:
@@ -35,7 +35,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.996321479Z"
+    created: "2023-04-09T05:59:42.570557756Z"
     description: A Helm chart for Kubernetes
     digest: 372ff6dde35c86a0c5592f7256b7492b23192e6f1bd216a881a690ce101bf7c3
     name: avatar-creation
@@ -45,7 +45,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.995862079Z"
+    created: "2023-04-09T05:59:42.569867452Z"
     description: A Helm chart for Kubernetes
     digest: d18cfc744ecbf04213c4d445da3cf03ddd2e0182f4e262fb3436edc0d1ff89ad
     name: avatar-creation
@@ -55,7 +55,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.995390279Z"
+    created: "2023-04-09T05:59:42.569153647Z"
     description: A Helm chart for Kubernetes
     digest: a2c9766697854c9d4ce0357984344611d4b37951064a907ac2cd16cce413e9a0
     name: avatar-creation
@@ -65,7 +65,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.99489498Z"
+    created: "2023-04-09T05:59:42.568549844Z"
     description: A Helm chart for Kubernetes
     digest: 18c184638feea33efdc2a849ebe75ddf8a2508f3e8f9ec3af44c89ef5fbb7da3
     name: avatar-creation
@@ -76,9 +76,9 @@ entries:
   dashboard:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.997559678Z"
+    created: "2023-04-09T05:59:42.572314267Z"
     description: A Helm chart for Kubernetes
-    digest: 17f96b598f20a4a7370e6059f67f305c8867cc055437020e63871e1b8c943189
+    digest: cc9a219ee253ae6baa23cc6e9b07f6afa704d9bdb9b75416e4712713b1bda708
     name: dashboard
     type: application
     urls:
@@ -86,7 +86,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.997152878Z"
+    created: "2023-04-09T05:59:42.571713063Z"
     description: A Helm chart for Kubernetes
     digest: 5bcd585a081da456653d57178e01b4e01377dd7223629162bc4276363edd7f1e
     name: dashboard
@@ -97,20 +97,31 @@ entries:
   measure-engine:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.997974578Z"
+    created: "2023-04-09T05:59:42.57283797Z"
     description: A Helm chart for Kubernetes
-    digest: f017e0d536b3b03022da3d9df001244017314f1891cd73446e2001d0e283eade
+    digest: a2743318bff860928cdfa67453837cd9c62020d9e1dbcba4be2164898465ccc4
     name: measure-engine
     type: application
     urls:
     - https://raw.githubusercontent.com/TheFittingRoom/helm-charts/gh-pages/measure-engine-0.1.0.tgz
     version: 0.1.0
+  render:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-04-09T05:59:42.573479374Z"
+    description: A Helm chart for Kubernetes
+    digest: 357395c054034d7a89b0c6c37a34199f9e9cda2d058afe7872a222c30e4e7e75
+    name: render
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/TheFittingRoom/helm-charts/gh-pages/render-0.1.0.tgz
+    version: 0.1.0
   rendering-engine:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.998853677Z"
+    created: "2023-04-09T05:59:42.577169797Z"
     description: A Helm chart for Kubernetes
-    digest: 2588a7db67625bd186bfe063342af2fc9325e6f5dfb0b0beb933c52dbaff578b
+    digest: 0c278e391b73e4b704e1cc694ad369b2db7ce1fdc021927001858e615c38c331
     name: rendering-engine
     type: application
     urls:
@@ -118,7 +129,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.998417277Z"
+    created: "2023-04-09T05:59:42.576518393Z"
     description: A Helm chart for Kubernetes
     digest: a16b57c1d04a30bef50119ecc478b3a59745196116cbab3457130db4e9581820
     name: rendering-engine
@@ -129,9 +140,9 @@ entries:
   scene-engine:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.000481176Z"
+    created: "2023-04-09T05:59:42.579582612Z"
     description: A Helm chart for Kubernetes
-    digest: 1d5360aba0635426e6172d139b1f273bb6ec03c060368e3056aa6faaf988b78f
+    digest: 05473339782efe44efd136936383ecaef7b5c767c85f22b22b0189e81d362ad3
     name: scene-engine
     type: application
     urls:
@@ -139,7 +150,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.000042576Z"
+    created: "2023-04-09T05:59:42.578922708Z"
     description: A Helm chart for Kubernetes
     digest: c92b0068e1f40b4ab37ced03ebd555a9cb6a067ea03872fc75f4619cd7ce987d
     name: scene-engine
@@ -149,7 +160,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:34.999629177Z"
+    created: "2023-04-09T05:59:42.577944302Z"
     description: A Helm chart for Kubernetes
     digest: 3e4486bd1ce6a5e8dfd5986e1d3d0273ece83f2a1d2939191b567cd2915adcd2
     name: scene-engine
@@ -160,9 +171,9 @@ entries:
   tfr-backend:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.023668961Z"
+    created: "2023-04-09T05:59:42.605826874Z"
     description: A Helm chart for Kubernetes
-    digest: 82abfc2064a8e57d9d07799bf7c668dd3e8f6b2cb59aa49ceb4dffb8dc8347f8
+    digest: 7e47bdf1fdfcefb76d236cb82952cf9e2baa14dd3b65d72cacd9af9cb45f2c8b
     name: tfr-backend
     type: application
     urls:
@@ -170,7 +181,7 @@ entries:
     version: 0.1.37
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.022962362Z"
+    created: "2023-04-09T05:59:42.604832768Z"
     description: A Helm chart for Kubernetes
     digest: 1ef36d99b96da1d1d0b5c3ea0cad21e33acba1ecaf96163904f3ea41268a273b
     name: tfr-backend
@@ -180,7 +191,7 @@ entries:
     version: 0.1.36
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.022251062Z"
+    created: "2023-04-09T05:59:42.603912163Z"
     description: A Helm chart for Kubernetes
     digest: 8b3c9e0be38c811aa351c1894218ce01e90b554d9a46c14bb0135a8528be21a7
     name: tfr-backend
@@ -190,7 +201,7 @@ entries:
     version: 0.1.35
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.021577263Z"
+    created: "2023-04-09T05:59:42.603013157Z"
     description: A Helm chart for Kubernetes
     digest: 8b463ec9a7a01e0d8327e692a8bfbdf1565b5360f2e2f8cf89757e688e10116d
     name: tfr-backend
@@ -200,7 +211,7 @@ entries:
     version: 0.1.34
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.020675163Z"
+    created: "2023-04-09T05:59:42.602160452Z"
     description: A Helm chart for Kubernetes
     digest: 2f7c9fddbd30be4cff249713724beeea298467e0f3b8e3679c27317b6b402687
     name: tfr-backend
@@ -210,7 +221,7 @@ entries:
     version: 0.1.33
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.019965764Z"
+    created: "2023-04-09T05:59:42.601293546Z"
     description: A Helm chart for Kubernetes
     digest: d02c56fc4471b9d37f472aba02a4ef5e328e1d3da8ccac28ccbe0f7a99912a1a
     name: tfr-backend
@@ -220,7 +231,7 @@ entries:
     version: 0.1.32
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.019305464Z"
+    created: "2023-04-09T05:59:42.600431541Z"
     description: A Helm chart for Kubernetes
     digest: 789ecb244f572c91cc84423a36f9eede8413c6498636766fab5c415e069f0189
     name: tfr-backend
@@ -230,7 +241,7 @@ entries:
     version: 0.1.31
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.018197265Z"
+    created: "2023-04-09T05:59:42.598990232Z"
     description: A Helm chart for Kubernetes
     digest: 377116763739807de04f56f0a6614de1436c2ff4c63d48e1bae02f33a17366c4
     name: tfr-backend
@@ -240,7 +251,7 @@ entries:
     version: 0.1.29
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.017550665Z"
+    created: "2023-04-09T05:59:42.598208627Z"
     description: A Helm chart for Kubernetes
     digest: 50081c67d4f6129b55987c4a7845d0e6d9914ccb3e0d0e4a4c2cd56aab08d1bf
     name: tfr-backend
@@ -250,7 +261,7 @@ entries:
     version: 0.1.28
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.012949668Z"
+    created: "2023-04-09T05:59:42.597423422Z"
     description: A Helm chart for Kubernetes
     digest: 82b7ef91c9e4b692820bf949d6cca52f27153e2dffa0fed3183900040e0ea27c
     name: tfr-backend
@@ -260,7 +271,7 @@ entries:
     version: 0.1.27
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.012331169Z"
+    created: "2023-04-09T05:59:42.596546817Z"
     description: A Helm chart for Kubernetes
     digest: 088460009c25343355029ad5f22ad2294c48c8fb403d79d27a107a9d55e0f0b8
     name: tfr-backend
@@ -270,7 +281,7 @@ entries:
     version: 0.1.26
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.011653169Z"
+    created: "2023-04-09T05:59:42.594846006Z"
     description: A Helm chart for Kubernetes
     digest: b4fd6b882e906545f5e64a4eb9d510a27e9063b50478405939d59eb2bb6883b8
     name: tfr-backend
@@ -280,7 +291,7 @@ entries:
     version: 0.1.25
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.011045669Z"
+    created: "2023-04-09T05:59:42.593712699Z"
     description: A Helm chart for Kubernetes
     digest: 93754ef654941029bc50a52c36bf1908fa9f974c3a8ad972eb4b79d982aa6d1d
     name: tfr-backend
@@ -290,7 +301,7 @@ entries:
     version: 0.1.24
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.01042357Z"
+    created: "2023-04-09T05:59:42.592674193Z"
     description: A Helm chart for Kubernetes
     digest: 351cfb51d9fcd0842fe49e73960e685ea20611a06d0e8d89eb977c84669c64d1
     name: tfr-backend
@@ -300,7 +311,7 @@ entries:
     version: 0.1.23
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.00979567Z"
+    created: "2023-04-09T05:59:42.591881488Z"
     description: A Helm chart for Kubernetes
     digest: c8b4112257604b610ec9e26876e9f67146e722e85ee2f868ec7cf47300979119
     name: tfr-backend
@@ -310,7 +321,7 @@ entries:
     version: 0.1.22
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.009175971Z"
+    created: "2023-04-09T05:59:42.590915482Z"
     description: A Helm chart for Kubernetes
     digest: 198786e30f586350c00fb430f792b3066488fed79f10a8139dafc5d936ed4ed6
     name: tfr-backend
@@ -320,7 +331,7 @@ entries:
     version: 0.1.21
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.008090571Z"
+    created: "2023-04-09T05:59:42.589274072Z"
     description: A Helm chart for Kubernetes
     digest: 0b6057037ee2d3b93aae4427f0677eae937296b4d279f36ae5c30e043032d05b
     name: tfr-backend
@@ -330,7 +341,7 @@ entries:
     version: 0.1.19
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.007453772Z"
+    created: "2023-04-09T05:59:42.588537267Z"
     description: A Helm chart for Kubernetes
     digest: 69962e890b0a0a02c9f8b5356e3b7a8a7e4225e78f59762b20c77dd45ed028fb
     name: tfr-backend
@@ -340,7 +351,7 @@ entries:
     version: 0.1.18
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.006812472Z"
+    created: "2023-04-09T05:59:42.587778663Z"
     description: A Helm chart for Kubernetes
     digest: 98555298585f5451328ca7bb35fda17d7ad8cd86fe265c9f321c00c7edd4a53e
     name: tfr-backend
@@ -350,7 +361,7 @@ entries:
     version: 0.1.17
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.006253472Z"
+    created: "2023-04-09T05:59:42.587105159Z"
     description: A Helm chart for Kubernetes
     digest: eff3d1a365db44660452a5c59307a69e8b89664d64afb82cb2dbf6f874c150bb
     name: tfr-backend
@@ -360,7 +371,7 @@ entries:
     version: 0.1.16
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.005248173Z"
+    created: "2023-04-09T05:59:42.586299954Z"
     description: A Helm chart for Kubernetes
     digest: e707e069ee26fa8dd52406b5ab72d5063f4f1cbc7aab4bf214fded0fe242079f
     name: tfr-backend
@@ -370,7 +381,7 @@ entries:
     version: 0.1.15
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.003777274Z"
+    created: "2023-04-09T05:59:42.585607449Z"
     description: A Helm chart for Kubernetes
     digest: 0a97b5c5ec70e35d195bae2fe5fedbd142ac343f86897df8e53935b02cc54560
     name: tfr-backend
@@ -380,7 +391,7 @@ entries:
     version: 0.1.14
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.002701375Z"
+    created: "2023-04-09T05:59:42.584887045Z"
     description: A Helm chart for Kubernetes
     digest: b11f50244a9800f9f12f3926315e49711bb4c0a01fe013156e40ee9aa47bfee3
     name: tfr-backend
@@ -390,7 +401,7 @@ entries:
     version: 0.1.13
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.002191275Z"
+    created: "2023-04-09T05:59:42.58406074Z"
     description: A Helm chart for Kubernetes
     digest: fecd4ff44a424bec417231f3efdf8d4b538cf9a7b586219490ecdfb26f885671
     name: tfr-backend
@@ -400,7 +411,7 @@ entries:
     version: 0.1.12
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.001742275Z"
+    created: "2023-04-09T05:59:42.583261235Z"
     description: A Helm chart for Kubernetes
     digest: de0df5beacc072284b5f15212fb6e11fefdb1f0cf59f448ca48ea6bd3daf1e46
     name: tfr-backend
@@ -410,7 +421,7 @@ entries:
     version: 0.1.11
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.027648859Z"
+    created: "2023-04-09T05:59:42.611373609Z"
     description: A Helm chart for Kubernetes
     digest: d0fa39b9de5a5cbd4f6c6143063a08c2f6f4785cb28bb91bb4daccf117a50bee
     name: tfr-backend
@@ -420,7 +431,7 @@ entries:
     version: 0.1.9
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.027205959Z"
+    created: "2023-04-09T05:59:42.610768905Z"
     description: A Helm chart for Kubernetes
     digest: 6d9efb7135d9c8ffa357cb5fb09bbe06768cada1bab2fe103a9af063ff7401b0
     name: tfr-backend
@@ -430,7 +441,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.02674096Z"
+    created: "2023-04-09T05:59:42.609089295Z"
     description: A Helm chart for Kubernetes
     digest: a7342593859c8fa205658da4563a15653c8c5eaec9f84c854b1d55a7357d36b8
     name: tfr-backend
@@ -440,7 +451,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.02597456Z"
+    created: "2023-04-09T05:59:42.607833887Z"
     description: A Helm chart for Kubernetes
     digest: d8f6b4445cd20f00e0f7b715e47808e381a1a42856351422fe637c9105648266
     name: tfr-backend
@@ -450,7 +461,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.02529636Z"
+    created: "2023-04-09T05:59:42.607200083Z"
     description: A Helm chart for Kubernetes
     digest: 05c1195dd02ac9606bdc1d8068c11defd4666df5579b82a53f6e02bf2541e0c3
     name: tfr-backend
@@ -460,7 +471,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.024607161Z"
+    created: "2023-04-09T05:59:42.606539379Z"
     description: A Helm chart for Kubernetes
     digest: 781ff9be61bd960f3c9bc153fde464e1cabd810062d6512b043948c4ce27d270
     name: tfr-backend
@@ -470,7 +481,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.018637665Z"
+    created: "2023-04-09T05:59:42.599561636Z"
     description: A Helm chart for Kubernetes
     digest: 217db28e6dd6c17978e840d41c9d572096902a78a309983c188c46060eb2a6b3
     name: tfr-backend
@@ -480,7 +491,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.008551071Z"
+    created: "2023-04-09T05:59:42.589933476Z"
     description: A Helm chart for Kubernetes
     digest: 8bb1701705b6d4e9aedd65826e1310f3b6700ad9b79a61d17b5b987c153487be
     name: tfr-backend
@@ -490,7 +501,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.001300776Z"
+    created: "2023-04-09T05:59:42.58083232Z"
     description: A Helm chart for Kubernetes
     digest: c6890a3f1ec3d50c266ee3111bfacc1c764a849926ee255effb32eece1b14641
     name: tfr-backend
@@ -500,7 +511,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.000892176Z"
+    created: "2023-04-09T05:59:42.580203616Z"
     description: A Helm chart for Kubernetes
     digest: ca7f3e2d2b8e0c51516ccf3aee11243e34420f78af0945469b29c980bcee4a75
     name: tfr-backend
@@ -511,9 +522,9 @@ entries:
   virtual-try-on:
   - apiVersion: v2
     appVersion: 1.17.0
-    created: "2023-04-07T20:13:35.030285257Z"
+    created: "2023-04-09T05:59:42.61488153Z"
     description: A Helm chart for Kubernetes
-    digest: 5d966f51cc1e14e98512730ae4dfb34bb3bf968d29081e367e9de820db53f6f1
+    digest: 58ad8d41c28f90eb4d500c7e93fa0efe3f8d1fc84749dd34b730cb7bbd82744f
     name: virtual-try-on
     type: application
     urls:
@@ -521,7 +532,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.17.0
-    created: "2023-04-07T20:13:35.029858358Z"
+    created: "2023-04-09T05:59:42.614338427Z"
     description: A Helm chart for Kubernetes
     digest: 5d663b92dcbc7de6fb4cf54cca83b2b5c779fe9e1b9786f0e96104936bf1b208
     name: virtual-try-on
@@ -531,7 +542,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.17.0
-    created: "2023-04-07T20:13:35.029419658Z"
+    created: "2023-04-09T05:59:42.613753323Z"
     description: A Helm chart for Kubernetes
     digest: 757b38303079858b3f63b6b4ad50769159aca1245b4fe3cd81b1a2d6fe927c64
     name: virtual-try-on
@@ -541,7 +552,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.17.0
-    created: "2023-04-07T20:13:35.028996258Z"
+    created: "2023-04-09T05:59:42.61315272Z"
     description: A Helm chart for Kubernetes
     digest: 98dc38515e67bda976e345b4ff73a50346e74faeb87c67ce959b28fc3bdb7a01
     name: virtual-try-on
@@ -551,7 +562,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.028565258Z"
+    created: "2023-04-09T05:59:42.612568016Z"
     description: A Helm chart for Kubernetes
     digest: 883b691b5820b0e1c123c94d90e60303708ee552ebf0a59d6ce12590106534d3
     name: virtual-try-on
@@ -561,7 +572,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-04-07T20:13:35.028096859Z"
+    created: "2023-04-09T05:59:42.611991713Z"
     description: A Helm chart for Kubernetes
     digest: d91782ab57111fa7f0654218dc0d7881c1c879af26da037070f8daeaddaa3ca0
     name: virtual-try-on
@@ -569,4 +580,4 @@ entries:
     urls:
     - https://raw.githubusercontent.com/TheFittingRoom/helm-charts/gh-pages/virtual-try-on-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-07T20:13:34.992684281Z"
+generated: "2023-04-09T05:59:42.566007128Z"
