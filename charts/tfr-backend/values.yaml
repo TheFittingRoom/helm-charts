@@ -129,6 +129,8 @@ cronJobs:
 externalSecrets:
   db:
     secretsManagerName: db
+  twilio:
+    secretsManagerName: twilio
 
 env:
   S3_AVATAR_CREATION_BUCKET: avatar-creation-dev
