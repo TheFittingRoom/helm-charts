@@ -14,11 +14,8 @@ spec:
       role: api
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-      {{- end }}
       labels:
         {{- include "avatar.selectorLabels" . | nindent 8 }}
         role: api
