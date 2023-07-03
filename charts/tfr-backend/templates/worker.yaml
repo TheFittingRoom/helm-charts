@@ -110,3 +110,24 @@ spec:
           averageUtilization: {{ .Values.worker.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
 {{- end }}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tfr-backend.fullname" . }}-worker-metrics
+  labels:
+    {{- include "tfr-backend.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.worker.service.type }}
+  ports:
+      targetPort: {{ .Values.worker.service.port }}
+    - port: {{ .Values.worker.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "tfr-backend.selectorLabels" . | nindent 4 }}
+    role: worker-metrics
+  cluserIP: None
