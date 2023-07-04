@@ -40,7 +40,6 @@ spec:
               imagePullPolicy: {{ $values.image.pullPolicy }}
               command:
                 - ./fittingroom
-                - run
                 - job
               args: {{ $jobSettings.command }}
               workingDir: /app
