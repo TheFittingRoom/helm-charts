@@ -1,0 +1,67 @@
+{{- $name := include "avatar-worker.fullname" . -}}
+
+
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ include "avatar-worker.fullname" . }}-worker
+  labels:
+    {{- include "avatar-worker.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "avatar-worker.selectorLabels" . | nindent 6 }}
+      role: worker
+  template:
+    metadata:
+      annotations:
+        checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        {{- include "avatar-worker.selectorLabels" . | nindent 8 }}
+        role: worker
+    spec:
+      serviceAccountName: {{ include "avatar-worker.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+        imagePullPolicy:  {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8000
+        - containerPort: 80
+         # protocol: TCP
+        command: ["celery",  "-A", "celery_worker", "worker",  "-c", "20", "-Q", "avatar_creation_queue"] 
+       
+        env:  
+        - name: SERVICE_PORT
+          value: {{ .Values.service.port | quote }} 
+        envFrom:
+            {{- include "avatar-worker.envFrom" . | nindent 12 }}   
+        resources:
+            limits:
+              nvidia.com/gpu:  1
+      {{- with .Values.nodeSelector }}        
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}        
+      
+      
+
+
+
+
+

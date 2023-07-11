@@ -1,0 +1,89 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/thefittingroom/avatar-worker
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: c65acce
+
+imagePullSecrets:
+  - name: docker-registry
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations:
+    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/avatar-dev'
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: avatar-worker
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+#resources:
+#  limits:
+#    nvidia.com/gpu: 1
+
+env:
+  SCENE_HOST: render-api
+  MEASURE_HOST: measure-engine
+  BUCKET: avatar-creation-dev
+  REGION: us-west-2
+  REDIS_HOST: redis.dev.thefittingroom.xyz:6379
+
+ 
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector:
+  nodepool: "A10"
+
+tolerations:
+  - key: "A10"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+
+
+resources:
+    limits:
+      nvidia.com/gpu: 1
+
+environment: development
+
+imagePullSecrets:
+  name: docker-registry
+affinity: {}  
