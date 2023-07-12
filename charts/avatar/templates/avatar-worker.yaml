@@ -1,29 +1,29 @@
-{{- $name := include "avatar-worker.fullname" . -}}
+{{- $name := include "avatar.fullname" . -}}
 
 
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: {{ include "avatar-worker.fullname" . }}-worker
+  name: {{ include "avatar.fullname" . }}-worker
   labels:
-    {{- include "avatar-worker.labels" . | nindent 4 }}
+    {{- include "avatar.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "avatar-worker.selectorLabels" . | nindent 6 }}
+      {{- include "avatar.selectorLabels" . | nindent 6 }}
       role: worker
   template:
     metadata:
       annotations:
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
-        {{- include "avatar-worker.selectorLabels" . | nindent 8 }}
+        {{- include "avatar.selectorLabels" . | nindent 8 }}
         role: worker
     spec:
-      serviceAccountName: {{ include "avatar-worker.serviceAccountName" . }}
+      serviceAccountName: {{ include "avatar.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -42,7 +42,7 @@ spec:
         - name: SERVICE_PORT
           value: {{ .Values.service.port | quote }} 
         envFrom:
-            {{- include "avatar-worker.envFrom" . | nindent 12 }}   
+            {{- include "avatar.envFrom" . | nindent 12 }}   
         resources:
             limits:
               nvidia.com/gpu:  1
