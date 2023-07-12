@@ -1,5 +1,5 @@
 apiVersion: v2
-name: render
+name: render-worker
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -8,7 +8,7 @@ description: A Helm chart for Kubernetes
 # to be deployed.
 #
 # Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
+# a dependency of application charts to inject those utilities and functions into the render-workering
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 

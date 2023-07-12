@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "render.name" -}}
+{{- define "render-worker.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "render.fullname" -}}
+{{- define "render-worker.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "render.chart" -}}
+{{- define "render-worker.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "render.labels" -}}
-helm.sh/chart: {{ include "render.chart" . }}
-{{ include "render.selectorLabels" . }}
+{{- define "render-worker.labels" -}}
+helm.sh/chart: {{ include "render-worker.chart" . }}
+{{ include "render-worker.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,23 +45,23 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "render.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "render.name" . }}
+{{- define "render-worker.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "render-worker.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "render.serviceAccountName" -}}
+{{- define "render-worker.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "render.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "render-worker.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
-{{- define "render.envFrom" -}}
+{{- define "render-worker.envFrom" -}}
 - configMapRef:
-    name: {{ include "render.fullname" . }}-configmap
+    name: {{ include "render-worker.fullname" . }}-configmap
 {{- end }}

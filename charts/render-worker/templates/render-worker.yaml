@@ -1,37 +1,37 @@
-{{- $name := include "render.fullname" . -}}
+{{- $name := include "render-worker.fullname" . -}}
 
 
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: {{ include "render.fullname" . }}-worker
+  name: {{ include "render-worker.fullname" . }}-worker
   labels:
-    {{- include "render.labels" . | nindent 4 }}
+    {{- include "render-worker.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "render.selectorLabels" . | nindent 6 }}
+      {{- include "render-worker.selectorLabels" . | nindent 6 }}
       role: worker
   template:
     metadata:
       annotations:
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
-        {{- include "render.selectorLabels" . | nindent 8 }}
+        {{- include "render-worker.selectorLabels" . | nindent 8 }}
         role: worker
     spec:
-      serviceAccountName: {{ include "render.serviceAccountName" . }}
+      serviceAccountName: {{ include "render-worker.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
       - name: {{ .Chart.Name }}
-        image:  "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}" 
-        imagePullPolicy:  {{ .Values.worker.image.pullPolicy }}
+        image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+        imagePullPolicy:  {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 8000
         - containerPort: 80
@@ -42,19 +42,19 @@ spec:
         - name: SERVICE_PORT
           value: {{ .Values.service.port | quote }} 
         envFrom:
-            {{- include "render.envFrom" . | nindent 12 }}   
+            {{- include "render-worker.envFrom" . | nindent 12 }}   
         resources:
             limits:
               nvidia.com/gpu:  1
-      {{- with .Values.worker.nodeSelector }}        
+      {{- with .Values.nodeSelector }}        
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.worker.affinity }}
+      {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.worker.tolerations }}
+      {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}        
