@@ -1,10 +1,10 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/thefittingroom/vto
+  repository: ghcr.io/thefittingroom/vto-worker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 062985b
+  tag: e326639
 
 imagePullSecrets:
   - name: docker-registry
@@ -19,7 +19,7 @@ serviceAccount:
     eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/virtual-try-on-dev'
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: virtual-try-on
+  name: vto-worker
 
 podAnnotations: {}
 

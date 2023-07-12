@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "virtual-try-on.name" -}}
+{{- define "vto-worker.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "virtual-try-on.fullname" -}}
+{{- define "vto-worker.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "virtual-try-on.chart" -}}
+{{- define "vto-worker.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "virtual-try-on.labels" -}}
-helm.sh/chart: {{ include "virtual-try-on.chart" . }}
-{{ include "virtual-try-on.selectorLabels" . }}
+{{- define "vto-worker.labels" -}}
+helm.sh/chart: {{ include "vto-worker.chart" . }}
+{{ include "vto-worker.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,23 +46,23 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "virtual-try-on.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "virtual-try-on.name" . }}
+{{- define "vto-worker.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "vto-worker.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "virtual-try-on.serviceAccountName" -}}
+{{- define "vto-worker.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "virtual-try-on.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "vto-worker.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
-{{- define "virtual-try-on.envFrom" -}}
+{{- define "vto-worker.envFrom" -}}
 - configMapRef:
-    name: {{ include "virtual-try-on.fullname" . }}-configmap
+    name: {{ include "vto-worker.fullname" . }}-configmap
 {{- end }}

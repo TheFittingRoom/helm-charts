@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "virtual-try-on.fullname" . }}
+  name: {{ include "vto-worker.fullname" . }}
   labels:
-    {{- include "virtual-try-on.labels" . | nindent 4 }}
+    {{- include "vto-worker.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "virtual-try-on.fullname" . }}
+    name: {{ include "vto-worker.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
