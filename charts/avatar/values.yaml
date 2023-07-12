@@ -1,10 +1,10 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/thefittingroom/avatar-api
+  repository: ghcr.io/thefittingroom/avatar-worker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: f0ab440
+  tag: c65acce
 
 imagePullSecrets:
   - name: docker-registry
@@ -67,40 +67,23 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
 
-#nodeSelector:
-#  nodepool: "A10"
+nodeSelector:
+  nodepool: "A10"
 
-#tolerations:
-#  - key: "A10"
-#    operator: "Equal"
-#    value: "true"
-#    effect: "NoSchedule"
+tolerations:
+  - key: "A10"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
 
-affinity: {}
 
-environment: development
 
-worker:
- 
-  image:
-    repository: ghcr.io/thefittingroom/avatar-worker
-    pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: c65acce
-
-  nodeSelector:
-    nodepool: "A10"
-
-  resources:
+resources:
     limits:
       nvidia.com/gpu: 1
 
-  tolerations:
-    - key: "A10"
-      operator: "Equal"
-      value: "true"
-      effect: "NoSchedule"  
-  
-  imagePullSecrets:
-    name: docker-registry
-  affinity: {}  
+environment: development
+
+imagePullSecrets:
+  name: docker-registry
+affinity: {}  
