@@ -1,10 +1,10 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/thefittingroom/vto
+  repository: ghcr.io/thefittingroom/virtual-try-on-worker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 062985b
+  tag: e326639
 
 imagePullSecrets:
   - name: docker-registry
