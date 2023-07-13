@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "virtual-try-on.fullname" . }}
+  name: {{ include "vto.fullname" . }}
   labels:
-    {{- include "virtual-try-on.labels" . | nindent 4 }}
+    {{- include "vto.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "virtual-try-on.selectorLabels" . | nindent 6 }}
+      {{- include "vto.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -19,13 +19,13 @@ spec:
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     {{- end }}
       labels:
-        {{- include "virtual-try-on.selectorLabels" . | nindent 8 }}
+        {{- include "vto.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "virtual-try-on.serviceAccountName" . }}
+      serviceAccountName: {{ include "vto.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -34,14 +34,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
-            - python3
-            - server_http.py
+          command: ["python3", "worker.py"]
+           
           env:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
           envFrom:
-            {{- include "virtual-try-on.envFrom" . | nindent 12 }}
+            {{- include "vto.envFrom" . | nindent 12 }}
           ports:
             - name: app
               containerPort: 8000
