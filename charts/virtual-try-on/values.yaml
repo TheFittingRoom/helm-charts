@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/thefittingroom/vto-worker
+  repository: ghcr.io/thefittingroom/virtual-try-on-worker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: e326639
@@ -16,10 +16,10 @@ serviceAccount:
   create: true
   # Annotations to add to the service account
   annotations:
-    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/vto-dev'
+    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/virtual-try-on-dev'
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: vto
+  name: virtual-try-on
 
 podAnnotations: {}
 
