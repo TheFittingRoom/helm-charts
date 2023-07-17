@@ -84,6 +84,5 @@ resources:
 
 environment: development
 
-imagePullSecrets:
-  name: docker-registry
+
 affinity: {}  
