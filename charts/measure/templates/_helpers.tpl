@@ -60,3 +60,9 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{- define "measure.envFrom" -}}
+- configMapRef:
+    name: {{ include "measure.fullname" . }}-configmap
+{{- end }}
