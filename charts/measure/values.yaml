@@ -58,7 +58,11 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+  
+env:
+  REGION: us-west-2
 
+  
 autoscaling:
   enabled: false
   minReplicas: 1
