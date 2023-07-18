@@ -37,6 +37,8 @@ spec:
           env:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
+          envFrom:
+            {{- include "measure.envFrom" . | nindent 12 }}      
           ports:
             - name: app
               containerPort: 8000
