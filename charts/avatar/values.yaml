@@ -58,6 +58,7 @@ env:
   BUCKET: avatar-creation-dev
   REGION: us-west-2
   REDIS_HOST: redis.dev.thefittingroom.xyz:6379
+  LOGER_LEVEL: INFO
 
  
 
