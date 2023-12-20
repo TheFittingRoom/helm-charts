@@ -42,7 +42,7 @@ spec:
                 - ./fittingroom
                 - job
               args: {{ $jobSettings.command }}
-              workingDir: /app
+              workingDir: /tfr-backend
               envFrom:
                 {{- $envFrom | nindent 16 }}
                 {{- with $jobSettings.envFrom}}

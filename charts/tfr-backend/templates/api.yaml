@@ -62,7 +62,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["./fittingroom", "api"]
-          workingDir: /app
+          workingDir: /tfr-backend
           envFrom:
             {{- include "tfr-backend.envFrom" . | nindent 12 }}
           ports:
@@ -71,7 +71,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: firebase-volume
-              mountPath: "/app/firebase-service-account"
+              mountPath: "/tfr-backend/firebase-service-account"
               readOnly: true
           livenessProbe:
             initialDelaySeconds: 5
