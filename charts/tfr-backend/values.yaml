@@ -142,6 +142,8 @@ env:
   VTO_FRAME_COUNT: "12"
   VTO_URL: http://virtual-try-on:8000
   AVATAR_URL: http://avatar:8000
+  INVITE_FROM_EMAIL: no-reply@devmail.thefittingroom.tech
+  INVITE_URL: https://dashboard.dev.thefittingroom.xyz/accept-invite/token/%s
 
 nodeSelector: {}
 
