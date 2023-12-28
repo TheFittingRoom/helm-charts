@@ -43,12 +43,12 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["./fittingroom", "worker"]
-          workingDir: /app
+          workingDir: /tfr-backend
           envFrom:
             {{- include "tfr-backend.envFrom" . | nindent 12 }}
           volumeMounts:
             - name: firebase-volume
-              mountPath: "/app/firebase-service-account"
+              mountPath: "/tfr-backend/firebase-service-account"
               readOnly: true
           resources:
             {{- toYaml .Values.worker.resources | nindent 12 }}
