@@ -36,8 +36,7 @@ spec:
         - containerPort: 8000
         - containerPort: 80
          # protocol: TCP
-        command: ["python3", "worker.py"]
-       
+        command: ["celery",  "-A", "render_frame", "worker", "-Ofair", "--task-events" "--pool", "threads", "-c", "3", "-Q", "rendering_queue"]
         env:  
         - name: SERVICE_PORT
           value: {{ .Values.service.port | quote }} 
