@@ -36,7 +36,7 @@ spec:
         - containerPort: 8000
         - containerPort: 80
          # protocol: TCP
-        command: ["celery",  "-A", "celery_worker", "worker",  "--task-events" "--pool", "threads", "-c", "3", "-Q", "avatar_creation_queue"]
+        command: ["celery",  "-A", "celery_worker", "worker",  "--task-events", "--pool", "threads", "-c", "3", "-Q", "avatar_creation_queue"]
         env:  
         - name: SERVICE_PORT
           value: {{ .Values.service.port | quote }} 
