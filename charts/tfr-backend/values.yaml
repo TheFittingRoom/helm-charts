@@ -51,6 +51,16 @@ ingress:
             deny all;
           }
         }
+
+      location ~* "^/migrate/up" {
+          deny all;
+          return 403;
+        }
+
+      location ~* "^/sync/all" {
+          deny all;
+          return 403;
+        }
   hosts:
     - host: tfr.dev.thefittingroom.xyz
       paths:
