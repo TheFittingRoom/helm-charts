@@ -1,0 +1,91 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/thefittingroom/sdf-generation-worker
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 0.0.1
+
+imagePullSecrets:
+  - name: docker-registry
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations:
+    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/sdf-generation-dev'
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: sdf-generation
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+#resources:
+#  limits:
+#    nvidia.com/gpu: 1
+
+env:
+  GENERATOR_PATH: /app/sdf_generator
+  GENERATOR_RESOLUTION: 0.01
+  GENERATOR_TIMEOUT_SECONDS: 5
+  REDIS_HOST: redis.dev.thefittingroom.xyz:6379
+  REDIS_QUEUE: sdf_creation_task
+  REDIS_TASK: create_sdf
+  S3_AVATAR_BUCKET: avatar_creation_dev
+  LOGER_LEVEL: INFO
+
+ 
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector:
+  nodepool: "A10"
+
+tolerations:
+  - key: "A10"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+
+
+
+resources:
+    limits:
+      nvidia.com/gpu: 1
+
+environment: development
+
+
+affinity: {}  

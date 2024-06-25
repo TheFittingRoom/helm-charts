@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sdf-generation.fullname" . }}
+  labels:
+    {{- include "sdf-generation.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: app
+      protocol: TCP
+      name: app
+  selector:
+    {{- include "sdf-generation.selectorLabels" . | nindent 4 }}
+    role: api

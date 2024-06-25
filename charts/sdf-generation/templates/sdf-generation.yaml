@@ -1,0 +1,62 @@
+{{- $name := include "sdf-generation.fullname" . -}}
+
+
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ include "sdf-generation.fullname" . }}-worker
+  labels:
+    {{- include "sdf-generation.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "sdf-generation.selectorLabels" . | nindent 6 }}
+      role: worker
+  template:
+    metadata:
+      annotations:
+        checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        {{- include "sdf-generation.selectorLabels" . | nindent 8 }}
+        role: worker
+    spec:
+      serviceAccountName: {{ include "sdf-generation.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+        imagePullPolicy:  {{ .Values.image.pullPolicy }}
+        command: ["/app/sdf-worker",  "api"]
+        env:  
+        - name: SERVICE_PORT
+          value: {{ .Values.service.port | quote }} 
+        envFrom:
+            {{- include "sdf-generation.envFrom" . | nindent 12 }}   
+        resources:
+            limits:
+              nvidia.com/gpu:  1
+      {{- with .Values.nodeSelector }}        
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}        
+      
+      
+
+
+
+
+
