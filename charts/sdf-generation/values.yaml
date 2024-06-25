@@ -53,6 +53,13 @@ ingress:
 #    nvidia.com/gpu: 1
 
 env:
+  GENERATOR_PATH: /app/sdf_generator
+  GENERATOR_RESOLUTION: 0.01
+  GENERATOR_TIMEOUT_SECONDS: 5
+  REDIS_HOST: redis.dev.thefittingroom.xyz:6379
+  REDIS_QUEUE: sdf_creation_task
+  REDIS_TASK: create_sdf
+  S3_AVATAR_BUCKET: avatar_creation_dev
   LOGER_LEVEL: INFO
 
  
