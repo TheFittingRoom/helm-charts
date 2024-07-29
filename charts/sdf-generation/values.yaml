@@ -4,7 +4,7 @@ image:
   repository: ghcr.io/thefittingroom/sdf-generation-worker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 0.0.1
+  tag: de22a27
 
 imagePullSecrets:
   - name: docker-registry
@@ -53,13 +53,11 @@ ingress:
 #    nvidia.com/gpu: 1
 
 env:
-  GENERATOR_PATH: /app/sdf_generator
-  GENERATOR_RESOLUTION: 0.01
-  GENERATOR_TIMEOUT_SECONDS: 5
   REDIS_HOST: redis.dev.thefittingroom.xyz:6379
-  REDIS_QUEUE: sdf_creation_task
-  REDIS_TASK: create_sdf
-  S3_AVATAR_BUCKET: avatar_creation_dev
+  REGION: us-west-2
+  AVATAR_BUCKET: avatar-creation-dev
+  GENERATOR_PATH: /app/sdf_generator
+  RESOLUTION: 0.01
   LOGER_LEVEL: INFO
   CELERY_WORKER_PREFETCH_MULTIPLIER: "1"
   CELERY_WORKER_SEND_TASK_EVENTS: "true"
