@@ -32,7 +32,7 @@ spec:
       - name: {{ .Chart.Name }}
         image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
         imagePullPolicy:  {{ .Values.image.pullPolicy }}
-        command: ["/bin/bash"] #["celery",  "-A", "sdf_worker", "worker",  "--prefetch-multiplier", "1", "--task-events", "--pool", "threads", "-c", "3", "-Q", "sdf_creation_queue"]
+        command: ["celery",  "-A", "sdf_worker", "worker",  "--prefetch-multiplier", "1", "--task-events", "--pool", "threads", "-c", "3", "-Q", "sdf_creation_queue"]
         env:  
         - name: SERVICE_PORT
           value: {{ .Values.service.port | quote }} 
