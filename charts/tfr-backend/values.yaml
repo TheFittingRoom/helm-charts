@@ -14,17 +14,19 @@ fullnameOverride: ""
 serviceAccount:
   create: true
   annotations:
-    eks.amazonaws.com/role-arn: 'arn:aws:iam::602373492013:role/tfr-backend-dev'
+    eks.amazonaws.com/role-arn: "arn:aws:iam::602373492013:role/tfr-backend-dev"
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: tfr-backend
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -120,7 +122,7 @@ worker:
 cronJobs:
   check-pending-avatars:
     enabled: true
-    cron: "*/1 * * * *"   # run once a minute
+    cron: "*/1 * * * *" # run once a minute
     command: [CheckPendingAvatars]
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
@@ -128,11 +130,13 @@ cronJobs:
 
   enqueue-all-stores-next-window:
     enabled: true
-    cron: "0 13 * * *"   # run once a day at 1pm
+    cron: "0 13 * * *" # run once a day at 1pm
     command: [EnqueueAllStoresNextWindow]
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
-    env: []
+    envFrom:
+      - secretRef:
+        name: aws-secret
 
 externalSecrets:
   db:
