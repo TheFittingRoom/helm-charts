@@ -1,10 +1,10 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/thefittingroom/virtual-try-on-worker
+  repository: ghcr.io/thefittingroom/vto-worker
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: e326639
+  tag: ebc9d5a
 
 imagePullSecrets:
   - name: docker-registry
@@ -56,12 +56,12 @@ resources:
     nvidia.com/gpu: 1
 
 env:
-  SCENE_HOST: scene-engine
-  SCENE_PORT: "8000"
-  AVATARS_BUCKET: tfr-avatars-dev
-  STYLES_BUCKET: styles-dev
-  VIRT_TRY_ON_BUCKET: virtual-try-on-dev
-  S3_region: us-west-2
+  LOGGER_LEVEL: INFO
+  REDIS_HOST: redis.dev.thefittingroom.xyz:6379
+  STYLE_BUCKET: styles-dev
+  AVATAR_BUCKET: avatar-creation-dev
+  VTO_BUCKET: virtual-try-on-dev
+  SIMULATOR_PATH: /app/vto-prod
 
 autoscaling:
   enabled: false
