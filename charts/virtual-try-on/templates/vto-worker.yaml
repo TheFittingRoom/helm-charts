@@ -34,7 +34,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["python3", "worker.py"]
+          command: ["celery",  "-A", "vto_worker", "worker",  "--prefetch-multiplier", "1", "--task-events", "--pool", "threads", "-c", "3", "-Q", "vto_queue"]
            
           env:
             - name: SERVICE_PORT
