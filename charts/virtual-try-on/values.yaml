@@ -79,6 +79,10 @@ tolerations:
     value: "true"
     effect: "NoSchedule"
 
+resources:
+    limits:
+      nvidia.com/gpu: 1
+
 affinity: {}
 
 environment: development
