@@ -136,7 +136,7 @@ cronJobs:
     failedJobsHistoryLimit: 1
     envFrom:
       - secretRef:
-          name: shopify-graphql
+        name: shopify-graphql
 
 externalSecrets:
   db:
