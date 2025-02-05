@@ -135,7 +135,7 @@ cronJobs:
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
     envFrom:
-      - secretRef:
+    - secretRef:
         name: shopify-graphql
 
 externalSecrets:
