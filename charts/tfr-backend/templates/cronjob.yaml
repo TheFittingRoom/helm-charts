@@ -44,7 +44,6 @@ spec:
               args: {{ $jobSettings.command }}
               workingDir: /tfr-backend
               envFrom:
-                {{- $envFrom | nindent 16 }}
                 {{- with $jobSettings.envFrom}}
                   {{- toYaml . | nindent 16 }}
                 {{- end }}
