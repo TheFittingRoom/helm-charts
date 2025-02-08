@@ -48,6 +48,10 @@ spec:
                 {{- with $jobSettings.envFrom}}
                   {{- toYaml . | nindent 16 }}
                 {{- end }}
+                {{- if $jobSettings.secretRef }}
+                  - secretRef:
+                      name: {{ $jobSettings.secretRef }}
+                {{- end }}
               env:
               {{- with $jobSettings.env}}
                 {{- toYaml . | nindent 16 }}
