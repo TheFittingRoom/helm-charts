@@ -140,6 +140,8 @@ cronJobs:
           name: shopify-graphql
 
 externalSecrets:
+  shopify-graphql:
+    secretsManagerName: shopify-graphql
   db:
     secretsManagerName: db
   twilio:
