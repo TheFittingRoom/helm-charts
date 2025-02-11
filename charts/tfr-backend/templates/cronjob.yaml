@@ -43,9 +43,16 @@ spec:
                 - job
               args: {{ $jobSettings.command }}
               workingDir: /tfr-backend
-              {{- with $jobSettings.envFrom}}
+              {{- range $jobSettings.envFrom }}
               envFrom:
-              {{- toYaml . | nindent 16 }}
+                {{- if .configMapRef }}
+                - configMapRef:
+                    name: {{ $name }}-{{ .configMapRef.name }}
+                {{- end }}
+                {{- if .secretRef }}
+                - secretRef:
+                    name: {{ $name }}-{{ .secretRef.name }}
+                {{- end }}
               {{- end }}
               {{- with $jobSettings.resources}}
               resources:
