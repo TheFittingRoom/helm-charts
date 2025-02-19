@@ -43,9 +43,10 @@ spec:
                 - job
               args: {{ $jobSettings.command }}
               workingDir: /tfr-backend
+              {{- with $jobSettings.env }}
               env:
-                - name: REDIS_URL
-                  value: "redis://{{ .Values.redis.host }}"
+              {{- toYaml . | nindent 16}}
+              {{- end}}
               {{- range $jobSettings.envFrom }}
               envFrom:
                 {{- if .configMapRef }}
