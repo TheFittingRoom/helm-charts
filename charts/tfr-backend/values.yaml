@@ -126,7 +126,6 @@ cronJobs:
     command: [CheckPendingAvatars]
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
-    env: []
 
   enqueue-all-stores-next-window:
     enabled: true
@@ -134,6 +133,8 @@ cronJobs:
     command: [EnqueueAllStoresNextWindow]
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
+    env:
+      - REDIS_URL: redis.dev.thefittingroom.xyz:6379
     envFrom:
       - secretRef:
           name: shopify-graphql
