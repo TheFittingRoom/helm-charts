@@ -44,8 +44,8 @@ spec:
               args: {{ $jobSettings.command }}
               workingDir: /tfr-backend
               env:
-              {{- if $jobSettings.env }}
-              {{- range $key, $value := $jobSettings.env }}
+              {{- range $env := $jobSettings.env }}
+              {{- range $key, $value := $env }}
               - name: {{ $key }}
                 value: {{ $value | quote }}
               {{- end }}
