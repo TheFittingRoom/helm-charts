@@ -66,6 +66,8 @@ Create the name of the service account to use
     name: {{ include "tfr-backend.fullname" . }}-db
 - secretRef:
     name: {{ include "tfr-backend.fullname" . }}-twilio
+- secretRef:
+    name: {{ include "tfr-backend.fullname" . }}-shopify-graphql
 - configMapRef:
     name: {{ include "tfr-backend.fullname" . }}-configmap
 {{- end }}
