@@ -50,8 +50,8 @@ spec:
                 value: {{ $value | quote }}
               {{- end }}
               {{- end }}
-              {{- range $jobSettings.envFrom }}
               envFrom:
+              {{- range $jobSettings.envFrom }}
                 {{- if .configMapRef }}
                 - configMapRef:
                     name: {{ $name }}-{{ .configMapRef.name }}
@@ -61,6 +61,8 @@ spec:
                     name: {{ $name }}-{{ .secretRef.name }}
                 {{- end }}
               {{- end }}
+                - configMapRef:
+                    name: {{ $name  }}-configmap
               {{- with $jobSettings.resources}}
               resources:
                 {{- toYaml . | nindent 16 }}
