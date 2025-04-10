@@ -126,6 +126,9 @@ cronJobs:
     command: [CheckPendingAvatars]
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
+    envFrom:
+      - secretRef:
+          name: tfr-backend-db
 
   enqueue-all-stores-next-window:
     enabled: true
