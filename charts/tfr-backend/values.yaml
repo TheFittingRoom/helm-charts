@@ -128,7 +128,7 @@ cronJobs:
     failedJobsHistoryLimit: 1
     envFrom:
       - secretRef:
-          name: tfr-backend-db
+          name: db
 
   enqueue-all-stores-next-window:
     enabled: true
