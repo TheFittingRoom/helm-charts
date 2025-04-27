@@ -1,0 +1,108 @@
+name: Update Replicas
+
+on:
+  repository_dispatch:
+    types: [update-helm-replicas]
+
+jobs:
+  update-replicas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Update values.yaml files
+        id: update-files
+        run: |
+          echo "Received update request for ${{ github.event.client_payload.environment }} environment (${{ github.event.client_payload.action }})"
+          echo "Triggered by: ${{ github.event.client_payload.triggered_by }}"
+          echo "Charts to update:"
+          
+          # Create Python script to update replica counts
+          cat > update_replicas.py << 'EOL'
+          import json
+          import os
+          import re
+          import sys
+          
+          # Get payload from environment variable
+          payload = json.loads(os.environ['PAYLOAD'])
+          chart_updates = payload.get('charts', {})
+          env = payload.get('environment', 'unknown')
+          action = payload.get('action', 'unknown')
+          triggered_by = payload.get('triggered_by', 'unknown')
+          
+          # Keep track of changes
+          changed_files = []
+          
+          # Update each chart
+          for chart_name, replicas in chart_updates.items():
+              values_file = f"charts/{chart_name}/values.yaml"
+              
+              if not os.path.exists(values_file):
+                  print(f"⚠️ Chart values file not found: {values_file}")
+                  continue
+              
+              print(f"🔄 Updating {chart_name} to {replicas} replicas")
+              
+              # Read current values.yaml
+              with open(values_file, 'r') as f:
+                  content = f.read()
+              
+              # Parse current replica count
+              current_replicas_match = re.search(r'replicaCount:\s*(\d+)', content)
+              current_replicas = int(current_replicas_match.group(1)) if current_replicas_match else 0
+              
+              if current_replicas == replicas:
+                  print(f"   No change needed for {chart_name}")
+                  continue
+              
+              # Update replica count
+              new_content = re.sub(
+                  r'replicaCount:\s*\d+', 
+                  f'replicaCount: {replicas}', 
+                  content
+              )
+              
+              # Write updated content back
+              with open(values_file, 'w') as f:
+                  f.write(new_content)
+              
+              changed_files.append(values_file)
+              print(f"✅ Updated {chart_name} from {current_replicas} to {replicas} replicas")
+          
+          # Set output for GitHub Actions
+          if changed_files:
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write(f"changed=true\n")
+                  f.write(f"files={' '.join(changed_files)}\n")
+          else:
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write(f"changed=false\n")
+          EOL
+          
+          # Run the script with the payload
+          echo "Running update script..."
+          export PAYLOAD='${{ toJson(github.event.client_payload) }}'
+          python update_replicas.py
+
+      - name: Commit and push changes
+        if: steps.update-files.outputs.changed == 'true'
+        run: |
+          git config user.name "TFR Automation"
+          git config user.email "automation@thefittingroom.xyz"
+          
+          git add ${{ steps.update-files.outputs.files }}
+          git commit -m "Update replica counts for ${{ github.event.client_payload.environment }} environment (${{ github.event.client_payload.action }})"
+          
+          # Push changes - this will trigger the existing release.yml workflow
+          git push
+          
+          echo "Changes pushed successfully - the existing release workflow will now package and release the updated charts."
+
+      - name: No changes needed
+        if: steps.update-files.outputs.changed != 'true'
+        run: |
+          echo "No changes needed to Helm charts"
