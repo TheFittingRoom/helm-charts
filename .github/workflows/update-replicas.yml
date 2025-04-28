@@ -1,0 +1,58 @@
+name: Update Replicas
+
+on:
+  repository_dispatch:
+    types: [update-helm-replicas]
+
+jobs:
+  update-replicas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Update values.yaml files
+        id: update-files
+        run: |
+          echo "Received update request for ${{ github.event.client_payload.environment }} environment (${{ github.event.client_payload.action }})"
+          echo "Triggered by: ${{ github.event.client_payload.triggered_by }}"
+          echo "Charts to update:"
+          
+          # Using the external script instead of embedding it
+          echo "Running update_replicas.py script..."
+          export PAYLOAD='${{ toJson(github.event.client_payload) }}'
+          python update_replicas.py
+
+      # Check for changes to specific paths (values.yaml files)
+      - name: Check for changes
+        id: check-changes
+        run: |
+          git diff --name-only | grep -E 'charts/.*/values\.yaml' || echo "No matching changes found"
+          if [[ $(git diff --name-only | grep -E 'charts/.*/values\.yaml') ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "files=$(git diff --name-only | grep -E 'charts/.*/values\.yaml' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.update-files.outputs.changed == 'true' && steps.check-changes.outputs.changed == 'true'
+        run: |
+          git config user.name "TFR Automation"
+          git config user.email "automation@thefittingroom.xyz"
+          
+          # Only add files that actually changed
+          git add ${{ steps.check-changes.outputs.files }}
+          git commit -m "Update replica counts for ${{ github.event.client_payload.environment }} environment (${{ github.event.client_payload.action }})"
+          
+          # Push changes - this will trigger the existing release.yml workflow
+          git push
+          
+          echo "Changes pushed successfully - the existing release workflow will now package and release the updated charts."
+
+      - name: No changes needed
+        if: steps.update-files.outputs.changed != 'true'
+        run: |
+          echo "No changes needed to Helm charts"
