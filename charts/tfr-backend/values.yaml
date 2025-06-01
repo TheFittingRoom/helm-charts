@@ -130,10 +130,10 @@ cronJobs:
       - secretRef:
           name: db
 
-  enqueue-all-stores-next-window:
+  enqueue-new-stores-days:
     enabled: true
     cron: "0 13 * * *" # run once a day at 1pm
-    command: [EnqueueAllStoresNextWindow]
+    command: [EnqueueNewStoresDays]
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
     env:
