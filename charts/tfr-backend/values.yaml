@@ -136,8 +136,7 @@ cronJobs:
     command: [EnqueueNewStoresDays]
     concurrencyPolicy: Forbid
     failedJobsHistoryLimit: 1
-    env:
-      - REDIS_URL: redis.dev.thefittingroom.xyz:6379
+    needsRedis: true
     envFrom:
       - secretRef:
           name: shopify-graphql

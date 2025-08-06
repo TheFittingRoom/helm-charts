@@ -44,6 +44,10 @@ spec:
               args: {{ $jobSettings.command }}
               workingDir: /tfr-backend
               env:
+              {{- if $jobSettings.needsRedis }}
+              - name: REDIS_URL
+                value: {{ $values.redis.host | quote }}
+              {{- end }}
               {{- range $env := $jobSettings.env }}
               {{- range $key, $value := $env }}
               - name: {{ $key }}
