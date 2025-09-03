@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "garment-simulation-worker.fullname" . }}-configmap
+data:
+  ENVIRONMENT: {{ .Values.environment }}
+  {{- range $k, $v := .Values.env }}
+  {{ $k }}: {{ $v | default "" | quote }}
+  {{- end }}
