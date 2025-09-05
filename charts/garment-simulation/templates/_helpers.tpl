@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "garment-simulation-worker.name" -}}
+{{- define "garment-simulation.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "garment-simulation-worker.fullname" -}}
+{{- define "garment-simulation.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "garment-simulation-worker.chart" -}}
+{{- define "garment-simulation.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "garment-simulation-worker.labels" -}}
-helm.sh/chart: {{ include "garment-simulation-worker.chart" . }}
-{{ include "garment-simulation-worker.selectorLabels" . }}
+{{- define "garment-simulation.labels" -}}
+helm.sh/chart: {{ include "garment-simulation.chart" . }}
+{{ include "garment-simulation.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -46,23 +46,23 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "garment-simulation-worker.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "garment-simulation-worker.name" . }}
+{{- define "garment-simulation.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "garment-simulation.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "garment-simulation-worker.serviceAccountName" -}}
+{{- define "garment-simulation.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "garment-simulation-worker.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "garment-simulation.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
-{{- define "garment-simulation-worker.envFrom" -}}
+{{- define "garment-simulation.envFrom" -}}
 - configMapRef:
-    name: {{ include "garment-simulation-worker.fullname" . }}-configmap
+    name: {{ include "garment-simulation.fullname" . }}-configmap
 {{- end }}

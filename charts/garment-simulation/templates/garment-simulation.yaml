@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "garment-simulation-worker.fullname" . }}
+  name: {{ include "garment-simulation.fullname" . }}
   labels:
-    {{- include "garment-simulation-worker.labels" . | nindent 4 }}
+    {{- include "garment-simulation.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "garment-simulation-worker.selectorLabels" . | nindent 6 }}
+      {{- include "garment-simulation.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -19,13 +19,13 @@ spec:
         checksum/config-map: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     {{- end }}
       labels:
-        {{- include "garment-simulation-worker.selectorLabels" . | nindent 8 }}
+        {{- include "garment-simulation.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "garment-simulation-worker.serviceAccountName" . }}
+      serviceAccountName: {{ include "garment-simulation.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -40,7 +40,7 @@ spec:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
           envFrom:
-            {{- include "garment-simulation-worker" . | nindent 12 }}
+            {{- include "garment-simulation" . | nindent 12 }}
           ports:
             - name: app
               containerPort: 8000
