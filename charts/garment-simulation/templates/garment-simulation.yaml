@@ -40,7 +40,7 @@ spec:
             - name: SERVICE_PORT
               value: {{ .Values.service.port | quote }}
           envFrom:
-            {{- include "garment-simulation" . | nindent 12 }}
+            {{- include "garment-simulation.envFrom" . | nindent 12 }}
           ports:
             - name: app
               containerPort: 8000
