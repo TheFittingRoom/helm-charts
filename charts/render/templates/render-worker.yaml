@@ -36,7 +36,13 @@ spec:
         - containerPort: 8000
         - containerPort: 80
          # protocol: TCP
+        {{- if .Values.command }}
+        command:
+          {{ .Values.command | toYaml | nindent 12 }}
+        {{- else }}
         command: ["celery",  "-A", "render_frame", "worker", "-Ofair", "--task-events", "--pool", "threads", "-c", "3", "-Q", "rendering_queue"]
+        {{- end }}
+
         env:  
         - name: SERVICE_PORT
           value: {{ .Values.service.port | quote }} 
