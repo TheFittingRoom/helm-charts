@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "garment-simulation-worker.fullname" . }}
+  name: {{ include "garment-simulation.fullname" . }}
   labels:
-    {{- include "garment-simulation-worker.labels" . | nindent 4 }}
+    {{- include "garment-simulation.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "garment-simulation-worker.fullname" . }}
+    name: {{ include "garment-simulation.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
