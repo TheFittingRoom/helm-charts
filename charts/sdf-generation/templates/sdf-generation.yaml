@@ -32,7 +32,12 @@ spec:
       - name: {{ .Chart.Name }}
         image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
         imagePullPolicy:  {{ .Values.image.pullPolicy }}
+        {{- if .Values.command }}
+        command:
+          {{ .Values.command | toYaml | nindent 12 }}
+        {{- else }}
         command: ["celery",  "-A", "sdf_worker", "worker",  "--prefetch-multiplier", "1", "--task-events", "--pool", "threads", "-c", "3", "-Q", "sdf_creation_queue"]
+        {{- end }}
         env:  
         - name: SERVICE_PORT
           value: {{ .Values.service.port | quote }} 
