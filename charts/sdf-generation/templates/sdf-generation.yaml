@@ -8,9 +8,6 @@ metadata:
   labels:
     {{- include "sdf-generation.labels" . | nindent 4 }}
 spec:
-  {{- if and (not .Values.autoscaling.enabled) (hasKey .Values "replicaCount") }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "sdf-generation.selectorLabels" . | nindent 6 }}
