@@ -5,9 +5,6 @@ metadata:
   labels:
     {{- include "garment-simulation.labels" . | nindent 4 }}
 spec:
-{{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-{{- end }}
   selector:
     matchLabels:
       {{- include "garment-simulation.selectorLabels" . | nindent 6 }}
