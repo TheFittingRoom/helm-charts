@@ -49,21 +49,6 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          
-          volumeMounts:
-            - name: vulkan-icd-host-usr
-              mountPath: /usr/share/vulkan/icd.d
-              readOnly: true
-            - name: vulkan-icd-host-etc
-              mountPath: /etc/vulkan/icd.d
-              readOnly: true
-      volumes:
-        - name: vulkan-icd-host-usr
-          hostPath:
-            path: /usr/share/vulkan/icd.d
-        - name: vulkan-icd-host-etc
-          hostPath:
-            path: /etc/vulkan/icd.d
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
