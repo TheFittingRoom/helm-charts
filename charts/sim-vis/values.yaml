@@ -59,6 +59,8 @@ env:
   VIDEO_UPLOAD_BUCKET: avatar-creation-dev
   LOGGER_LEVEL: INFO
 
+extraEnvFrom: []
+
 autoscaling:
   enabled: false
   minReplicas: 1

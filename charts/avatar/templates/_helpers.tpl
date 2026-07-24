@@ -64,4 +64,7 @@ Create the name of the service account to use
 {{- define "avatar.envFrom" -}}
 - configMapRef:
     name: {{ include "avatar.fullname" . }}-configmap
+{{- with .Values.extraEnvFrom }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}

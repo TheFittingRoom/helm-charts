@@ -64,4 +64,7 @@ Create the name of the service account to use
 {{- define "sim-vis.envFrom" -}}
 - configMapRef:
     name: {{ include "sim-vis.fullname" . }}-configmap
+{{- with .Values.extraEnvFrom }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
