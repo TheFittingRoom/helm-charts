@@ -64,4 +64,7 @@ Create the name of the service account to use
 {{- define "sdf-generation.envFrom" -}}
 - configMapRef:
     name: {{ include "sdf-generation.fullname" . }}-configmap
+{{- with .Values.extraEnvFrom }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}

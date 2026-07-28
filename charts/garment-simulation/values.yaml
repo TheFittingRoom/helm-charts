@@ -63,6 +63,8 @@ env:
   VTO_BUCKET: virtual-try-on-dev
   SIMULATOR_PATH: /app/vto-prod
 
+extraEnvFrom: []
+
 autoscaling:
   enabled: false
   minReplicas: 1

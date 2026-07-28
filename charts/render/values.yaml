@@ -59,6 +59,8 @@ env:
   RENDER_BUCKET: tfr-render-dev 
   VTO_BUCKET: virtual-try-on-dev  
 
+extraEnvFrom: []
+
 
  
 
@@ -85,5 +87,4 @@ resources:
   limits:
     nvidia.com/gpu: 1
  
-
 

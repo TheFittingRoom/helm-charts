@@ -65,4 +65,7 @@ Create the name of the service account to use
 {{- define "garment-simulation.envFrom" -}}
 - configMapRef:
     name: {{ include "garment-simulation.fullname" . }}-configmap
+{{- with .Values.extraEnvFrom }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}

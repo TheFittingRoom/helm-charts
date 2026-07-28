@@ -60,6 +60,8 @@ env:
   REDIS_HOST: redis.dev.thefittingroom.xyz:6379
   LOGER_LEVEL: INFO
 
+extraEnvFrom: []
+
  
 
 autoscaling:

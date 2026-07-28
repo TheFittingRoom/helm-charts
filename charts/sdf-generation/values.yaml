@@ -63,6 +63,8 @@ env:
   CELERY_WORKER_SEND_TASK_EVENTS: "true"
   CELERY_TASK_SEND_SENT_EVENT: "true"
 
+extraEnvFrom: []
+
  
 
 autoscaling:
